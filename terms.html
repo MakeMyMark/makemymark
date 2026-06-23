@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions — Make My Mark</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0F1C3F; --blue: #1D4ED8; --blue-mid: #2563EB;
+  --blue-pale: #EFF4FF; --gold: #B8860B; --gold-mid: #C9973A;
+  --gold-light: #FDF6E3; --white: #FFFFFF; --off: #F8F9FC;
+  --ink: #1A1A2E; --muted: #6B7280; --border: #E5E9F2;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--ink); }
+header {
+  background: var(--navy); padding: 18px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff; text-decoration: none; }
+.logo span { color: var(--gold-mid); }
+.back-link { font-size: 0.82rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.18s; }
+.back-link:hover { color: var(--gold-mid); }
+
+.page-wrap { max-width: 800px; margin: 56px auto; padding: 0 24px 100px; }
+
+.page-header { margin-bottom: 48px; }
+.page-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+.page-title { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--navy); margin-bottom: 14px; line-height: 1.15; }
+.page-date { font-size: 0.82rem; color: var(--muted); }
+
+.toc {
+  background: var(--blue-pale); border: 1.5px solid rgba(29,78,216,0.15);
+  border-radius: 10px; padding: 24px 28px; margin-bottom: 40px;
+}
+.toc-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+.toc ol { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+.toc li { font-size: 0.875rem; }
+.toc a { color: var(--blue); text-decoration: none; transition: color 0.18s; }
+.toc a:hover { color: var(--navy); text-decoration: underline; }
+
+.section { margin-bottom: 40px; }
+.section-num { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-mid); margin-bottom: 6px; }
+.section h2 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.section p { font-size: 0.9rem; color: var(--ink); line-height: 1.8; margin-bottom: 14px; font-weight: 300; }
+.section p:last-child { margin-bottom: 0; }
+.section ul, .section ol { padding-left: 20px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 8px; }
+.section li { font-size: 0.9rem; color: var(--ink); line-height: 1.7; font-weight: 300; }
+
+.highlight-box {
+  background: var(--gold-light); border-left: 4px solid var(--gold-mid);
+  border-radius: 0 8px 8px 0; padding: 18px 20px; margin: 20px 0;
+}
+.highlight-box p { font-size: 0.88rem; color: var(--navy); line-height: 1.7; margin: 0; font-weight: 400; }
+.highlight-box strong { color: var(--gold); }
+
+.refund-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.875rem; }
+.refund-table th { background: var(--navy); color: #fff; padding: 12px 16px; text-align: left; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.05em; }
+.refund-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--ink); line-height: 1.5; vertical-align: top; }
+.refund-table tr:nth-child(even) td { background: var(--off); }
+.refund-table tr:last-child td { border-bottom: none; }
+
+.contact-box {
+  background: var(--navy); border-radius: 10px; padding: 28px 32px;
+  margin-top: 48px; text-align: center;
+}
+.contact-box h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff; margin-bottom: 10px; }
+.contact-box p { font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+.contact-box a { color: var(--gold-mid); text-decoration: none; font-weight: 500; }
+
+footer {
+  background: var(--navy); padding: 32px 56px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.footer-logo { font-family: 'DM Serif Display', serif; font-size: 1rem; color: #fff; }
+.footer-logo span { color: var(--gold-mid); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 0.78rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.18s; }
+.footer-links a:hover { color: var(--gold-mid); }
+.footer-note { font-size: 0.72rem; color: rgba(255,255,255,0.3); max-width: 500px; line-height: 1.6; }
+
+@media (max-width: 600px) {
+  header { padding: 14px 20px; }
+  footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+  .refund-table { font-size: 0.78rem; }
+  .refund-table th, .refund-table td { padding: 10px 10px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Make My Mark<span>.</span></a>
+  <a href="index.html" class="back-link">← Back to Home</a>
+</header>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <p class="page-label">Legal</p>
+    <h1 class="page-title">Terms &amp; Conditions</h1>
+    <p class="page-date">Effective Date: June 23, 2026 &nbsp;·&nbsp; Last Updated: June 23, 2026</p>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ol>
+      <li><a href="#s1">Attorney Advertising &amp; No Attorney-Client Relationship</a></li>
+      <li><a href="#s2">Services Provided</a></li>
+      <li><a href="#s3">Fees &amp; Payment</a></li>
+      <li><a href="#s4">Refund Policy</a></li>
+      <li><a href="#s5">No Guarantee of Registration</a></li>
+      <li><a href="#s6">USPTO Fees</a></li>
+      <li><a href="#s7">Client Responsibilities</a></li>
+      <li><a href="#s8">Confidentiality</a></li>
+      <li><a href="#s9">Limitation of Liability</a></li>
+      <li><a href="#s10">Governing Law</a></li>
+      <li><a href="#s11">Contact Information</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section" id="s1">
+    <p class="section-num">Section 1</p>
+    <h2>Attorney Advertising &amp; No Attorney-Client Relationship</h2>
+    <p>This website is attorney advertising. Make My Mark is operated by James Dee Graves, a licensed attorney in the State of Oklahoma.</p>
+    <p>The information provided on this website is for general informational purposes only and does not constitute legal advice. Submitting a form or making a payment on this website does not create an attorney-client relationship. An attorney-client relationship is only established upon execution of a written engagement agreement signed by both the client and James Dee Graves, Attorney at Law.</p>
+    <p>If you have submitted a form and have not yet received a written engagement agreement, no attorney-client relationship exists and you should not rely on any communications as legal advice.</p>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" id="s2">
+    <p class="section-num">Section 2</p>
+    <h2>Services Provided</h2>
+    <p>Make My Mark provides flat-fee trademark filing services, including:</p>
+    <ul>
+      <li>Preliminary trademark clearance searches</li>
+      <li>Preparation and filing of federal trademark applications with the United States Patent and Trademark Office (USPTO)</li>
+      <li>Attorney review of all applications prior to filing</li>
+      <li>Responses to USPTO Office Actions (as included in your selected plan)</li>
+      <li>Status updates and client communications throughout the examination process</li>
+      <li>Additional services as described in the Premium plan, including trademark monitoring, Statement of Use assistance, cease and desist letters, and renewal assistance</li>
+    </ul>
+    <p>Services are provided solely in connection with U.S. federal trademark registration. Make My Mark does not provide state trademark registration services, international trademark filing (other than as an add-on service), patent services, copyright registration, or general business legal advice.</p>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section" id="s3">
+    <p class="section-num">Section 3</p>
+    <h2>Fees &amp; Payment</h2>
+    <p>Make My Mark charges flat service fees as described on the pricing page of this website. Current plan pricing is as follows:</p>
+    <ul>
+      <li><strong>Standard Plan:</strong> $749 attorney service fee</li>
+      <li><strong>Plus Plan:</strong> $999 attorney service fee</li>
+      <li><strong>Business Plan:</strong> $1,249 attorney service fee</li>
+      <li><strong>Premium Plan:</strong> $1,499 attorney service fee</li>
+      <li><strong>Additional Office Action Responses</strong> (Standard Plan only, beyond the first): $249 per response</li>
+    </ul>
+    <p>All fees listed above are attorney service fees only and do not include USPTO government filing fees. USPTO filing fees are charged separately and are currently $350 per class of goods or services. Additional USPTO surcharges may apply depending on the nature of your application. Make My Mark will advise you of any applicable surcharges prior to filing.</p>
+    <p>Payment is due in full prior to filing your application with the USPTO. Make My Mark accepts payment via major credit and debit cards processed through Stripe. By submitting payment, you authorize Make My Mark to charge your payment method for the selected plan amount.</p>
+
+    <div class="highlight-box">
+      <p><strong>Non-Refundable Review Fee:</strong> Upon submission of your Stage 1 application and payment, a $100 non-refundable review fee is immediately earned and retained by Make My Mark to cover the attorney time spent reviewing your application, conducting a preliminary clearance search, and providing an initial registrability assessment — regardless of whether you proceed with filing.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section" id="s4">
+    <p class="section-num">Section 4</p>
+    <h2>Refund Policy</h2>
+    <p>Make My Mark offers a partial refund guarantee on attorney service fees. The following refund schedule applies:</p>
+
+    <table class="refund-table">
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>Refund Amount</th>
+          <th>Non-Refundable Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Client cancels <strong>before</strong> attorney review is completed</td>
+          <td>Full service fee minus $100 review fee</td>
+          <td>$100 review fee</td>
+        </tr>
+        <tr>
+          <td>Attorney advises <strong>against filing</strong> after review and client agrees not to proceed</td>
+          <td>Full service fee minus $100 review fee</td>
+          <td>$100 review fee</td>
+        </tr>
+        <tr>
+          <td>Client cancels <strong>after filing</strong> but before USPTO decision</td>
+          <td>Service fee minus $250 earned attorney fee</td>
+          <td>$250 attorney fee + USPTO filing fee</td>
+        </tr>
+        <tr>
+          <td>USPTO <strong>denies registration</strong> after all applicable Office Action responses are exhausted</td>
+          <td>Service fee minus $250 earned attorney fee</td>
+          <td>$250 attorney fee + USPTO filing fee</td>
+        </tr>
+        <tr>
+          <td><strong>Premium Plan:</strong> USPTO denies registration after all responses exhausted</td>
+          <td>Full service fee refunded (attorney fee waived)</td>
+          <td>USPTO filing fee only</td>
+        </tr>
+        <tr>
+          <td>USPTO <strong>approves</strong> registration</td>
+          <td>No refund</td>
+          <td>Full service fee earned</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <p><strong>Important:</strong> USPTO government filing fees ($350 per class) are <strong>non-refundable by law</strong> under all circumstances once submitted to the USPTO. Make My Mark has no ability to recover these fees on your behalf. This policy is set by the federal government and is outside of our control.</p>
+    </div>
+
+    <p>Refund requests must be submitted in writing to attorney@makemymark.legal. Approved refunds will be processed within 10 business days to the original payment method. Refunds are not available for USPTO fees, third-party search fees, or any fees paid directly to government agencies.</p>
+    <p>The Premium Plan money-back guarantee applies only when the USPTO ultimately denies registration after all Office Action responses have been submitted and exhausted. It does not apply if the client fails to provide required information, abandons the application, or declines to pursue available responses.</p>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section" id="s5">
+    <p class="section-num">Section 5</p>
+    <h2>No Guarantee of Registration</h2>
+    <p>Make My Mark does not guarantee that your trademark application will be approved or that your mark will be registered with the USPTO. Trademark registration is subject to the discretion of USPTO examining attorneys and is governed by federal trademark law.</p>
+    <p>Common reasons for denial include, but are not limited to:</p>
+    <ul>
+      <li>Likelihood of confusion with an existing registered mark</li>
+      <li>The mark being merely descriptive of the goods or services</li>
+      <li>The mark being generic</li>
+      <li>Failure to establish use in commerce</li>
+      <li>Geographic descriptiveness</li>
+      <li>Primarily merely a surname</li>
+    </ul>
+    <p>Make My Mark will conduct a preliminary clearance search prior to filing and will advise you of any identified risks. However, a clearance search is not exhaustive and cannot identify all potential conflicts or grounds for refusal. Filing a trademark application always carries inherent risk of denial, and the decision to proceed is ultimately yours.</p>
+    <p>By submitting payment and proceeding with filing, you acknowledge and accept that trademark registration is not guaranteed, and that denial by the USPTO does not constitute negligence or error on the part of Make My Mark or James Dee Graves, Attorney at Law, except where caused by a demonstrable error in the preparation or filing of your application.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section" id="s6">
+    <p class="section-num">Section 6</p>
+    <h2>USPTO Fees</h2>
+    <p>USPTO government filing fees are set by the federal government and are subject to change without notice. Make My Mark will notify you of the applicable USPTO fees prior to filing. Current base filing fees are $350 per class of goods or services.</p>
+    <p>Additional USPTO surcharges may apply in certain circumstances, including:</p>
+    <ul>
+      <li>Use of free-form text descriptions not drawn from the USPTO ID Manual ($200 per class)</li>
+      <li>Descriptions exceeding 1,000 characters ($200 per additional 1,000 characters)</li>
+      <li>Missing required information ($100 per class)</li>
+    </ul>
+    <p>Make My Mark takes all reasonable steps to avoid surcharges through proper application preparation. However, you are responsible for the payment of all applicable USPTO fees, and these fees are non-refundable once submitted regardless of the outcome of your application.</p>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="section" id="s7">
+    <p class="section-num">Section 7</p>
+    <h2>Client Responsibilities</h2>
+    <p>By using Make My Mark's services, you agree to:</p>
+    <ul>
+      <li>Provide accurate, complete, and truthful information in all application forms</li>
+      <li>Respond promptly to requests for additional information or clarification</li>
+      <li>Notify Make My Mark of any changes to your contact information or business status</li>
+      <li>Review all application materials provided to you before authorizing filing</li>
+      <li>Respond to any time-sensitive communications regarding your application, including USPTO deadlines</li>
+      <li>Understand that trademark deadlines are strictly enforced by the USPTO and that failure to respond within required timeframes may result in abandonment of your application</li>
+    </ul>
+    <p>You represent and warrant that you are the lawful owner of, or have the right to apply for registration of, the mark described in your application. You further represent that the information provided in your application is true and accurate to the best of your knowledge, and that you understand the penalty for willful false statements under 18 U.S.C. § 1001.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="section" id="s8">
+    <p class="section-num">Section 8</p>
+    <h2>Confidentiality</h2>
+    <p>All information you submit to Make My Mark is treated as confidential attorney-client information once an engagement agreement is executed. Prior to execution of an engagement agreement, information submitted through our intake forms is treated with the same level of confidentiality as prospective client information.</p>
+    <p>Make My Mark will not share your information with third parties except as necessary to provide services (such as filing with the USPTO, which is a public record upon filing), as required by law, or with your explicit consent.</p>
+    <p>Please note that trademark applications filed with the USPTO become part of the public record and are accessible through the USPTO's TSDR database. Your name, address, and mark information will be publicly visible upon filing.</p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="section" id="s9">
+    <p class="section-num">Section 9</p>
+    <h2>Limitation of Liability</h2>
+    <p>To the maximum extent permitted by applicable law, Make My Mark and James Dee Graves, Attorney at Law, shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of our services, including but not limited to loss of business, loss of profits, or loss of trademark rights.</p>
+    <p>Our total liability to you for any claim arising out of or related to the services provided shall not exceed the total attorney service fees paid by you to Make My Mark for the specific application giving rise to the claim.</p>
+    <p>Nothing in these Terms limits liability for gross negligence, willful misconduct, or any liability that cannot be excluded under applicable law.</p>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="section" id="s10">
+    <p class="section-num">Section 10</p>
+    <h2>Governing Law</h2>
+    <p>These Terms and Conditions shall be governed by and construed in accordance with the laws of the State of Oklahoma, without regard to its conflict of law provisions. Any dispute arising out of or relating to these Terms or the services provided by Make My Mark shall be subject to the exclusive jurisdiction of the state and federal courts located in Oklahoma County, Oklahoma.</p>
+    <p>Make My Mark reserves the right to update these Terms and Conditions at any time. Updated terms will be posted on this page with a revised effective date. Continued use of our services after such updates constitutes your acceptance of the revised terms.</p>
+  </div>
+
+  <!-- SECTION 11 -->
+  <div class="section" id="s11">
+    <p class="section-num">Section 11</p>
+    <h2>Contact Information</h2>
+    <p>If you have any questions about these Terms and Conditions or our services, please contact us:</p>
+    <ul>
+      <li><strong>Email:</strong> attorney@makemymark.legal</li>
+      <li><strong>Attorney:</strong> James Dee Graves, Licensed Attorney, State of Oklahoma</li>
+      <li><strong>Website:</strong> www.makemymark.legal</li>
+    </ul>
+  </div>
+
+  <div class="contact-box">
+    <h3>Questions about these terms?</h3>
+    <p>We're happy to clarify anything before you proceed.</p>
+    <a href="mailto:attorney@makemymark.legal">attorney@makemymark.legal</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Make My Mark<span>.</span></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="stage1.html">Start Filing</a>
+    <a href="terms.html">Terms &amp; Conditions</a>
+  </div>
+  <p class="footer-note">Attorney advertising. James Dee Graves, licensed attorney (Oklahoma). Information on this site does not constitute legal advice and does not create an attorney-client relationship.</p>
+</footer>
+
+</body>
+</html>

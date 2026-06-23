@@ -252,6 +252,16 @@ header {
         </div>
       </div>
 
+      <div style="background:var(--blue-pale);border:1.5px solid rgba(29,78,216,0.15);border-radius:8px;padding:18px 20px;margin-top:24px;display:flex;flex-direction:column;gap:12px;">
+        <label style="display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:var(--ink);cursor:pointer;line-height:1.5;">
+          <input type="checkbox" id="tcCheck" style="margin-top:3px;flex-shrink:0;width:auto;cursor:pointer;">
+          I have read and agree to the <a href="terms.html" target="_blank" style="color:var(--blue);font-weight:500;">Terms &amp; Conditions</a>, including the refund policy and attorney advertising disclosure.
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:var(--ink);cursor:pointer;line-height:1.5;">
+          <input type="checkbox" id="refundCheck" style="margin-top:3px;flex-shrink:0;width:auto;cursor:pointer;">
+          I understand that a <strong>$100 non-refundable review fee</strong> is retained upon submission, a <strong>$250 attorney fee is earned upon filing</strong>, and USPTO government fees ($350/class) are non-refundable by federal law. If my mark is ultimately denied after all responses are exhausted, I am entitled to a refund of my attorney service fee minus $250 (Premium plan clients receive a full attorney fee refund).
+        </label>
+      </div>
       <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Submit &amp; Continue to Payment →</button>
       <p class="disclaimer">By submitting, you agree to be contacted by a licensed attorney. Submission does not create an attorney-client relationship until engagement is confirmed. All information is kept strictly confidential.</p>
 
@@ -278,6 +288,15 @@ async function handleSubmit() {
 
   const selectedPlan = document.querySelector('input[name="plan"]:checked');
   if (!selectedPlan) { alert('Please select a plan before continuing.'); return; }
+
+  if (!document.getElementById('tcCheck').checked) {
+    alert('Please agree to the Terms & Conditions before continuing.');
+    return;
+  }
+  if (!document.getElementById('refundCheck').checked) {
+    alert('Please acknowledge the refund policy before continuing.');
+    return;
+  }
 
   const required = ['firstName','lastName','email','address','city','state','zip','country','entityType','citizenship','markName','markType','filingBasis','goodsServices'];
   for (let id of required) {
