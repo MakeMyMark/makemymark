@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make My Mark — Complete Your Trademark Details</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0F1C3F; --blue: #1D4ED8; --blue-mid: #2563EB;
+  --blue-pale: #EFF4FF; --gold: #B8860B; --gold-mid: #C9973A;
+  --white: #FFFFFF; --off: #F8F9FC; --ink: #1A1A2E;
+  --muted: #6B7280; --border: #E5E9F2;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--ink); min-height: 100vh; }
+header {
+  background: var(--navy); padding: 18px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff; text-decoration: none; }
+.logo span { color: var(--gold-mid); }
+.step-bar { display: flex; align-items: center; gap: 8px; }
+.step { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.step.done { color: rgba(255,255,255,0.4); }
+.step.active { color: var(--gold-mid); }
+.step-divider { color: rgba(255,255,255,0.2); font-size: 0.8rem; }
+
+.page-wrap { max-width: 720px; margin: 48px auto; padding: 0 24px 80px; }
+.page-title { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--navy); margin-bottom: 8px; }
+.page-sub { font-size: 0.95rem; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
+
+.card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 36px; margin-bottom: 20px; }
+.card-title {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 20px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
+.fg.full { grid-column: 1 / -1; }
+.fg label { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.fg input, .fg select, .fg textarea {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 8px; color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-size: 0.93rem;
+  padding: 11px 14px; outline: none; width: 100%;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: var(--blue); box-shadow: 0 0 0 3px rgba(29,78,216,0.08);
+}
+.fg textarea { resize: vertical; min-height: 90px; }
+.fg .hint { font-size: 0.72rem; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+
+.conditional { display: none; }
+.conditional.visible { display: contents; }
+
+.radio-group { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+.radio-opt { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem; }
+.radio-opt input { width: auto; cursor: pointer; }
+
+.file-upload {
+  border: 2px dashed var(--border); border-radius: 8px;
+  padding: 24px; text-align: center; cursor: pointer;
+  transition: border-color 0.18s;
+}
+.file-upload:hover { border-color: var(--blue); }
+.file-upload input { display: none; }
+.file-upload-label { font-size: 0.88rem; color: var(--muted); cursor: pointer; }
+.file-upload-label strong { color: var(--blue); }
+.file-name { font-size: 0.82rem; color: var(--navy); margin-top: 8px; font-weight: 500; }
+
+.declaration-box {
+  background: var(--blue-pale); border: 1.5px solid rgba(29,78,216,0.2);
+  border-radius: 8px; padding: 20px; margin-bottom: 20px;
+}
+.declaration-box p { font-size: 0.85rem; color: var(--navy); line-height: 1.7; margin-bottom: 14px; }
+.declaration-check { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--ink); cursor: pointer; line-height: 1.5; }
+.declaration-check input { margin-top: 3px; flex-shrink: 0; cursor: pointer; }
+
+.submit-btn {
+  width: 100%; background: var(--blue); color: #fff; border: none;
+  padding: 16px; font-family: 'DM Sans', sans-serif;
+  font-size: 1rem; font-weight: 600; cursor: pointer;
+  border-radius: 100px; transition: background 0.18s;
+}
+.submit-btn:hover { background: var(--blue-mid); }
+.submit-btn:disabled { background: var(--muted); cursor: not-allowed; }
+.disclaimer { font-size: 0.72rem; color: var(--muted); line-height: 1.6; text-align: center; margin-top: 14px; }
+
+.success-box { display: none; text-align: center; padding: 40px 20px; }
+.success-icon { font-size: 3rem; margin-bottom: 16px; }
+.success-title { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 12px; }
+.success-msg { font-size: 0.95rem; color: var(--muted); line-height: 1.7; max-width: 440px; margin: 0 auto; }
+
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+  header { padding: 14px 20px; }
+  .card { padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Make My Mark<span>.</span></a>
+  <div class="step-bar">
+    <span class="step done">Step 1 ✓</span>
+    <span class="step-divider">→</span>
+    <span class="step active">Step 2 — Mark Details</span>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <h1 class="page-title">Complete your trademark details.</h1>
+  <p class="page-sub">This information will be used to prepare your USPTO application. Take your time — accuracy here helps avoid Office Actions and surcharges. Your attorney will review everything before filing.</p>
+
+  <div id="form-area">
+
+    <!-- MARK DETAILS -->
+    <div class="card">
+      <div class="card-title">Your Mark</div>
+      <div class="form-grid">
+        <div class="fg full">
+          <label>Client Reference (your email from Step 1) *</label>
+          <input type="email" id="clientEmail" placeholder="you@yourbusiness.com" required>
+          <span class="hint">This links your Step 2 details to your Step 1 application.</span>
+        </div>
+
+        <div class="fg full">
+          <label>Exact wording of your mark *</label>
+          <input type="text" id="markText" placeholder="The exact name, slogan, or phrase you want to trademark" required>
+          <span class="hint">Enter this exactly as you want it to appear in the registration.</span>
+        </div>
+
+        <div class="fg full">
+          <label>Does your mark use standard English characters only? *</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="stdChars" value="yes" onchange="toggleConditional()"> Yes — standard English letters and/or numbers only</label>
+            <label class="radio-opt"><input type="radio" name="stdChars" value="no" onchange="toggleConditional()"> No — includes a logo, stylized text, or special design</label>
+          </div>
+        </div>
+
+        <div class="fg full conditional" id="logoUploadSection">
+          <label>Upload your logo or design mark *</label>
+          <div class="file-upload" onclick="document.getElementById('logoFile').click()">
+            <input type="file" id="logoFile" accept=".jpg,.jpeg,.png,.pdf,.svg" onchange="showFileName(this)">
+            <div class="file-upload-label">
+              <strong>Click to upload</strong> or drag and drop<br>
+              JPG, PNG, PDF, or SVG · Max 5MB
+            </div>
+            <div class="file-name" id="fileName"></div>
+          </div>
+          <span class="hint">If your mark includes color, upload a color version. The USPTO requires a clear image of the mark as it will appear in use.</span>
+        </div>
+
+        <div class="fg full conditional" id="colorSection">
+          <label>Does your mark include color as a feature?</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="hasColor" value="yes" onchange="toggleColorDesc()"> Yes</label>
+            <label class="radio-opt"><input type="radio" name="hasColor" value="no" onchange="toggleColorDesc()"> No — black and white only</label>
+          </div>
+        </div>
+
+        <div class="fg full conditional" id="colorDescSection">
+          <label>Describe the colors in your mark *</label>
+          <textarea id="colorDesc" placeholder="e.g. The mark consists of the word MARK in blue letters with a gold circle surrounding it. The colors blue and gold are claimed as a feature of the mark."></textarea>
+        </div>
+
+        <div class="fg full">
+          <label>Does your mark include any non-English wording?</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="nonEnglish" value="yes" onchange="toggleTranslation()"> Yes</label>
+            <label class="radio-opt"><input type="radio" name="nonEnglish" value="no" onchange="toggleTranslation()"> No</label>
+          </div>
+        </div>
+
+        <div class="fg full conditional" id="translationSection">
+          <label>English translation of non-English wording *</label>
+          <input type="text" id="translation" placeholder="Provide the English meaning of the non-English words in your mark">
+        </div>
+
+        <div class="fg full">
+          <label>Does your mark include the name or likeness of a living individual?</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="livingPerson" value="yes"> Yes</label>
+            <label class="radio-opt"><input type="radio" name="livingPerson" value="no"> No</label>
+          </div>
+          <span class="hint">If yes, written consent from that individual will be required. Your attorney will advise.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOODS & SERVICES -->
+    <div class="card">
+      <div class="card-title">Goods &amp; Services</div>
+      <div class="form-grid">
+        <div class="fg full">
+          <label>Detailed description of goods or services *</label>
+          <textarea id="detailedGoods" placeholder="Be as specific as possible. e.g. 'Restaurant services featuring American cuisine, namely providing food and beverages for consumption on and off the premises.' Your attorney will match this to the USPTO ID Manual." required style="min-height:120px;"></textarea>
+          <span class="hint">The more specific you are, the better. Include how your product or service is delivered, who it's for, and what it does.</span>
+        </div>
+
+        <div class="fg full">
+          <label>International Class (if known)</label>
+          <input type="text" id="intlClass" placeholder="e.g. Class 43 — Restaurant &amp; Food Services. Leave blank if unsure — your attorney will classify.">
+          <span class="hint">Not sure? Leave blank. Your attorney will select the correct class(es) from the USPTO ID Manual.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- USE IN COMMERCE -->
+    <div class="card">
+      <div class="card-title">Use in Commerce</div>
+      <div class="form-grid">
+
+        <div class="fg full">
+          <label>Are you currently using this mark in commerce? *</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="inUse" value="yes" onchange="toggleUseFields()"> Yes — already in use</label>
+            <label class="radio-opt"><input type="radio" name="inUse" value="no" onchange="toggleUseFields()"> No — Intent to Use</label>
+          </div>
+        </div>
+
+        <div class="fg conditional" id="firstUseSection">
+          <label>Date of first use anywhere *</label>
+          <input type="date" id="firstUseDate">
+          <span class="hint">The first date you used this mark anywhere, even within one state.</span>
+        </div>
+
+        <div class="fg conditional" id="firstUseCommerceSection">
+          <label>Date of first use in commerce *</label>
+          <input type="date" id="firstUseCommerce">
+          <span class="hint">The first date you used this mark across state lines or in interstate commerce.</span>
+        </div>
+
+        <div class="fg full conditional" id="specimenSection">
+          <label>Upload a specimen showing your mark in use *</label>
+          <div class="file-upload" onclick="document.getElementById('specimenFile').click()">
+            <input type="file" id="specimenFile" accept=".jpg,.jpeg,.png,.pdf" onchange="showSpecimenName(this)">
+            <div class="file-upload-label">
+              <strong>Click to upload</strong> your specimen<br>
+              JPG, PNG, or PDF · Max 5MB
+            </div>
+            <div class="file-name" id="specimenName"></div>
+          </div>
+          <span class="hint">A specimen shows the mark being used in commerce — e.g. a photo of the mark on your product packaging, a screenshot of your website showing the mark with a buy button, or a menu showing the mark for a restaurant. Labels, tags, and website screenshots are commonly accepted.</span>
+        </div>
+
+        <div class="fg full conditional" id="specimenUrlSection">
+          <label>Website URL where mark is in use (if applicable)</label>
+          <input type="url" id="specimenUrl" placeholder="https://www.yourwebsite.com">
+          <span class="hint">If your mark appears on a website, provide the URL. The USPTO may use this to verify use.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXISTING REGISTRATIONS -->
+    <div class="card">
+      <div class="card-title">Existing Trademark Registrations</div>
+      <div class="form-grid">
+        <div class="fg full">
+          <label>Do you own any existing trademark registrations for the same mark?</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="existingReg" value="yes" onchange="toggleExistingReg()"> Yes</label>
+            <label class="radio-opt"><input type="radio" name="existingReg" value="no" onchange="toggleExistingReg()"> No</label>
+          </div>
+        </div>
+        <div class="fg full conditional" id="existingRegSection">
+          <label>Registration numbers of existing registrations</label>
+          <input type="text" id="existingRegNums" placeholder="e.g. Reg. No. 1234567, Reg. No. 7654321">
+        </div>
+      </div>
+    </div>
+
+    <!-- DECLARATION -->
+    <div class="card">
+      <div class="card-title">Declaration &amp; Signature</div>
+      <div class="declaration-box">
+        <p>The undersigned, being hereby warned that willful false statements and the like so made are punishable by fine or imprisonment, or both, under 18 U.S.C. § 1001, and that such willful false statements may jeopardize the validity of the application or any resulting registration, declares that all statements made of his/her own knowledge are true and all statements made on information and belief are believed to be true.</p>
+        <label class="declaration-check">
+          <input type="checkbox" id="declarationCheck">
+          I declare that the above statements are true and I am authorized to sign on behalf of the applicant.
+        </label>
+      </div>
+      <div class="form-grid">
+        <div class="fg full">
+          <label>Full Legal Name (Signature) *</label>
+          <input type="text" id="signatureName" placeholder="Type your full legal name to serve as your electronic signature" required>
+        </div>
+        <div class="fg">
+          <label>Title / Position (if filing on behalf of a business)</label>
+          <input type="text" id="signerTitle" placeholder="e.g. CEO, Managing Member, Owner">
+        </div>
+        <div class="fg">
+          <label>Date *</label>
+          <input type="date" id="signatureDate" required>
+        </div>
+        <div class="fg full">
+          <label>Additional notes for your attorney</label>
+          <textarea id="attorneyNotes" placeholder="Any questions, concerns, or additional context for your attorney..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="submitBtn2" onclick="handleSubmit2()">Submit Trademark Details →</button>
+    <p class="disclaimer">This information will be reviewed by a licensed attorney before any filing. Submission does not constitute legal advice or create an attorney-client relationship until engagement is confirmed in writing.</p>
+
+  </div>
+
+  <div class="success-box" id="successBox2">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">Details received!</div>
+    <p class="success-msg">Your trademark details have been submitted successfully. A licensed attorney will review your complete application and be in touch within 24 hours to confirm next steps and payment.<br><br>Thank you for choosing Make My Mark.</p>
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+function toggleConditional() {
+  const val = document.querySelector('input[name="stdChars"]:checked')?.value;
+  document.getElementById('logoUploadSection').classList.toggle('visible', val === 'no');
+  document.getElementById('colorSection').classList.toggle('visible', val === 'no');
+}
+
+function toggleColorDesc() {
+  const val = document.querySelector('input[name="hasColor"]:checked')?.value;
+  document.getElementById('colorDescSection').classList.toggle('visible', val === 'yes');
+}
+
+function toggleTranslation() {
+  const val = document.querySelector('input[name="nonEnglish"]:checked')?.value;
+  document.getElementById('translationSection').classList.toggle('visible', val === 'yes');
+}
+
+function toggleUseFields() {
+  const val = document.querySelector('input[name="inUse"]:checked')?.value;
+  const show = val === 'yes';
+  document.getElementById('firstUseSection').classList.toggle('visible', show);
+  document.getElementById('firstUseCommerceSection').classList.toggle('visible', show);
+  document.getElementById('specimenSection').classList.toggle('visible', show);
+  document.getElementById('specimenUrlSection').classList.toggle('visible', show);
+}
+
+function toggleExistingReg() {
+  const val = document.querySelector('input[name="existingReg"]:checked')?.value;
+  document.getElementById('existingRegSection').classList.toggle('visible', val === 'yes');
+}
+
+function showFileName(input) {
+  document.getElementById('fileName').textContent = input.files[0]?.name || '';
+}
+
+function showSpecimenName(input) {
+  document.getElementById('specimenName').textContent = input.files[0]?.name || '';
+}
+
+// Set today's date as default for signature date
+document.getElementById('signatureDate').valueAsDate = new Date();
+
+async function handleSubmit2() {
+  const btn = document.getElementById('submitBtn2');
+
+  if (!document.getElementById('declarationCheck').checked) {
+    alert('Please check the declaration box to confirm your information is accurate.');
+    return;
+  }
+
+  const required = ['clientEmail', 'markText', 'signatureName', 'signatureDate', 'detailedGoods'];
+  for (let id of required) {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.focus();
+      el.style.borderColor = '#DC2626';
+      alert('Please fill in all required fields.');
+      return;
+    }
+    el.style.borderColor = '';
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const data = {
+    stage: '2',
+    timestamp: new Date().toISOString(),
+    clientEmail: document.getElementById('clientEmail').value.trim(),
+    markText: document.getElementById('markText').value.trim(),
+    stdChars: document.querySelector('input[name="stdChars"]:checked')?.value || '',
+    colorDesc: document.getElementById('colorDesc').value.trim(),
+    translation: document.getElementById('translation').value.trim(),
+    livingPerson: document.querySelector('input[name="livingPerson"]:checked')?.value || '',
+    detailedGoods: document.getElementById('detailedGoods').value.trim(),
+    intlClass: document.getElementById('intlClass').value.trim(),
+    inUse: document.querySelector('input[name="inUse"]:checked')?.value || '',
+    firstUseDate: document.getElementById('firstUseDate').value,
+    firstUseCommerce: document.getElementById('firstUseCommerce').value,
+    specimenUrl: document.getElementById('specimenUrl').value.trim(),
+    existingReg: document.querySelector('input[name="existingReg"]:checked')?.value || '',
+    existingRegNums: document.getElementById('existingRegNums').value.trim(),
+    signatureName: document.getElementById('signatureName').value.trim(),
+    signerTitle: document.getElementById('signerTitle').value.trim(),
+    signatureDate: document.getElementById('signatureDate').value,
+    attorneyNotes: document.getElementById('attorneyNotes').value.trim(),
+    declarationSigned: 'Yes'
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch(e) {
+    console.log('Submission sent');
+  }
+
+  document.getElementById('form-area').style.display = 'none';
+  document.getElementById('successBox2').style.display = 'block';
+}
+</script>
+</body>
+</html>
