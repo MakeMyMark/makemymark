@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make My Mark — Sign Your Engagement Letter</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0F1C3F; --blue: #1D4ED8; --blue-mid: #2563EB;
+  --blue-pale: #EFF4FF; --gold: #B8860B; --gold-mid: #C9973A;
+  --gold-light: #FDF6E3; --white: #FFFFFF; --off: #F8F9FC;
+  --ink: #1A1A2E; --muted: #6B7280; --border: #E5E9F2;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--ink); min-height: 100vh; }
+header {
+  background: var(--navy); padding: 18px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff; text-decoration: none; }
+.logo span { color: var(--gold-mid); }
+.step-bar { display: flex; align-items: center; gap: 8px; }
+.step { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.step.done { color: rgba(255,255,255,0.4); }
+.step.active { color: var(--gold-mid); }
+.step-divider { color: rgba(255,255,255,0.2); font-size: 0.8rem; }
+
+.page-wrap { max-width: 720px; margin: 48px auto; padding: 0 24px 80px; }
+.page-title { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--navy); margin-bottom: 8px; }
+.page-sub { font-size: 0.95rem; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
+
+/* Engagement letter preview */
+.letter-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 12px; overflow: hidden; margin-bottom: 24px;
+}
+.letter-header {
+  background: var(--navy); padding: 24px 32px; text-align: center;
+}
+.letter-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff; }
+.letter-header p { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 4px; letter-spacing: 0.1em; text-transform: uppercase; }
+.letter-body { padding: 32px; }
+.letter-section { margin-bottom: 20px; }
+.letter-section h3 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.letter-section p { font-size: 0.875rem; color: var(--ink); line-height: 1.75; font-weight: 300; }
+.letter-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 8px 0; }
+.letter-table th { background: var(--navy); color: #fff; padding: 8px 12px; text-align: left; font-size: 0.75rem; }
+.letter-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.letter-table tr:last-child td { border-bottom: none; }
+.highlight-box {
+  background: var(--gold-light); border-left: 3px solid var(--gold-mid);
+  border-radius: 0 6px 6px 0; padding: 14px 16px; margin: 12px 0; font-size: 0.85rem; line-height: 1.65;
+}
+
+/* Signature section */
+.sign-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 32px;
+}
+.sign-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 6px; }
+.sign-sub { font-size: 0.875rem; color: var(--muted); margin-bottom: 24px; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
+.fg.full { grid-column: 1 / -1; }
+.fg label { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.fg input { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 0.93rem; padding: 11px 14px; outline: none; transition: border-color 0.18s, box-shadow 0.18s; width: 100%; }
+.fg input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(29,78,216,0.08); }
+
+.agree-box {
+  background: var(--blue-pale); border: 1.5px solid rgba(29,78,216,0.15);
+  border-radius: 8px; padding: 18px 20px; margin: 20px 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.agree-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--ink); cursor: pointer; line-height: 1.5; }
+.agree-item input { margin-top: 3px; flex-shrink: 0; cursor: pointer; }
+
+.sign-preview {
+  border: 1.5px solid var(--border); border-radius: 8px;
+  padding: 20px; margin: 16px 0; min-height: 70px;
+  display: flex; align-items: center;
+  background: var(--off);
+}
+.sign-preview-text { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--navy); font-style: italic; opacity: 0.6; }
+
+.submit-btn {
+  width: 100%; background: var(--blue); color: #fff; border: none;
+  padding: 16px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600;
+  cursor: pointer; border-radius: 100px; transition: background 0.18s; margin-top: 8px;
+}
+.submit-btn:hover { background: var(--blue-mid); }
+.submit-btn:disabled { background: var(--muted); cursor: not-allowed; }
+.disclaimer { font-size: 0.72rem; color: var(--muted); line-height: 1.6; text-align: center; margin-top: 12px; }
+
+.success-box { display: none; text-align: center; padding: 48px 20px; }
+.success-icon { font-size: 3.5rem; margin-bottom: 16px; }
+.success-title { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 14px; }
+.success-msg { font-size: 0.95rem; color: var(--muted); line-height: 1.75; max-width: 480px; margin: 0 auto; }
+.success-next { margin-top: 24px; background: var(--blue-pale); border-radius: 8px; padding: 20px; font-size: 0.875rem; color: var(--navy); line-height: 1.7; }
+
+@media (max-width: 600px) {
+  header { padding: 14px 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .letter-body { padding: 20px; }
+  .sign-card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Make My Mark<span>.</span></a>
+  <div class="step-bar">
+    <span class="step done">Step 1 ✓</span>
+    <span class="step-divider">→</span>
+    <span class="step active">Engagement Letter</span>
+    <span class="step-divider">→</span>
+    <span class="step" style="color:rgba(255,255,255,0.3);">Step 2</span>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <div id="main-area">
+    <h1 class="page-title">Your Engagement Letter.</h1>
+    <p class="page-sub">Please review the terms below and sign electronically to formally establish our attorney-client relationship. You'll receive a copy by email, and your Step 2 link will be sent immediately after.</p>
+
+    <div class="letter-card">
+      <div class="letter-header">
+        <h2>Engagement Letter &amp; Fee Agreement</h2>
+        <p>Make My Mark &nbsp;·&nbsp; Graves Law Firm, PLLC</p>
+      </div>
+      <div class="letter-body">
+
+        <div class="letter-section">
+          <h3>Client &amp; Matter</h3>
+          <table class="letter-table">
+            <tr><th>Client</th><th>Mark</th><th>Plan</th></tr>
+            <tr>
+              <td id="lt-name">—</td>
+              <td id="lt-mark">—</td>
+              <td id="lt-plan">—</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="letter-section">
+          <h3>Scope of Representation</h3>
+          <p>Graves Law Firm, PLLC, agrees to represent you in connection with the preparation and filing of a federal trademark application with the USPTO for the mark identified above. Our representation is limited to this specific matter and does not extend to litigation, opposition proceedings, or international filings unless separately agreed in writing.</p>
+        </div>
+
+        <div class="letter-section">
+          <h3>Attorney Fees</h3>
+          <table class="letter-table">
+            <tr><th>Fee</th><th>Amount</th></tr>
+            <tr><td>Attorney Service Fee (your selected plan)</td><td id="lt-fee">—</td></tr>
+            <tr><td>Non-Refundable Review Fee (included above)</td><td>$100</td></tr>
+            <tr><td>Attorney Fee Earned Upon Filing (included above)</td><td>$250</td></tr>
+            <tr><td>USPTO Government Filing Fee (billed separately)</td><td>$350/class</td></tr>
+          </table>
+        </div>
+
+        <div class="letter-section">
+          <h3>Refund Policy</h3>
+          <div class="highlight-box" id="lt-refund">Loading refund terms...</div>
+        </div>
+
+        <div class="letter-section">
+          <h3>No Guarantee of Registration</h3>
+          <p>Trademark registration is subject to USPTO discretion and is not guaranteed. We will conduct a preliminary clearance search and advise you of any risks before filing. Denial of your application does not constitute negligence on our part except where caused by a demonstrable filing error.</p>
+        </div>
+
+        <div class="letter-section">
+          <h3>Confidentiality &amp; Governing Law</h3>
+          <p>All information is protected by attorney-client privilege. This engagement is governed by the laws of the State of Oklahoma. Disputes are subject to the exclusive jurisdiction of Oklahoma County courts.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SIGNATURE SECTION -->
+    <div class="sign-card">
+      <div class="sign-title">Sign your engagement letter</div>
+      <div class="sign-sub">Type your full legal name below. This constitutes your electronic signature.</div>
+
+      <div class="form-grid">
+        <div class="fg full">
+          <label>Full Legal Name (Electronic Signature) *</label>
+          <input type="text" id="sigName" placeholder="Type your full legal name" oninput="updatePreview(this.value)" required>
+        </div>
+        <div class="fg">
+          <label>Title (if signing on behalf of a business)</label>
+          <input type="text" id="sigTitle" placeholder="e.g. CEO, Owner, Managing Member">
+        </div>
+        <div class="fg">
+          <label>Date</label>
+          <input type="text" id="sigDate" readonly>
+        </div>
+      </div>
+
+      <div class="sign-preview">
+        <span class="sign-preview-text" id="signaturePreview">Your signature will appear here...</span>
+      </div>
+
+      <div class="agree-box">
+        <label class="agree-item">
+          <input type="checkbox" id="check1">
+          I have read and understood this Engagement Letter and Fee Agreement in its entirety.
+        </label>
+        <label class="agree-item">
+          <input type="checkbox" id="check2">
+          I agree to the scope of representation, fee structure, refund policy, and all other terms stated above.
+        </label>
+        <label class="agree-item">
+          <input type="checkbox" id="check3">
+          I understand that USPTO filing fees ($350/class) are non-refundable by federal law under all circumstances, and that a $250 attorney fee is earned upon filing my application.
+        </label>
+        <label class="agree-item">
+          <input type="checkbox" id="check4">
+          I authorize Make My Mark to proceed with services on my behalf upon receipt of payment.
+        </label>
+      </div>
+
+      <button class="submit-btn" id="signBtn" onclick="handleSign()">Sign &amp; Continue to Step 2 →</button>
+      <p class="disclaimer">By clicking above, you are signing this Engagement Letter electronically. Your typed name constitutes a legally binding electronic signature under the Electronic Signatures in Global and National Commerce Act (E-SIGN Act), 15 U.S.C. § 7001 et seq.</p>
+    </div>
+  </div>
+
+  <div class="success-box" id="successBox">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Engagement Letter signed.</div>
+    <p class="success-msg">Thank you — our attorney-client relationship is now formally established. A signed copy of this Engagement Letter has been sent to your email address.</p>
+    <div class="success-next">
+      <strong>What happens next:</strong><br><br>
+      You'll receive an email within a few minutes with your Step 2 link to complete your trademark details.<br><br>
+      <strong>In the meantime, please upload your logo and specimen files</strong> to your secure client folder — the link was included in your original email. We cannot file without these if your application requires them.
+    </div>
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+// Parse URL params to pre-fill client info
+let clientData = {};
+try {
+  const params = new URLSearchParams(window.location.search);
+  const raw = params.get('data');
+  if (raw) clientData = JSON.parse(decodeURIComponent(raw));
+} catch(e) { console.log('No client data in URL'); }
+
+const planFees = {
+  'Standard': { fee: '$749', refund: 'Refund of $499 (service fee minus $250 earned attorney fee). USPTO fee non-refundable.' },
+  'Plus': { fee: '$999', refund: 'Refund of $749 (service fee minus $250 earned attorney fee). USPTO fee non-refundable.' },
+  'Business': { fee: '$1,249', refund: 'Refund of $999 (service fee minus $250 earned attorney fee). USPTO fee non-refundable.' },
+  'Premium': { fee: '$1,499', refund: 'Full attorney fee refund if mark is ultimately denied after all responses exhausted. USPTO fee non-refundable.' }
+};
+
+window.onload = function() {
+  // Set today's date
+  const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('sigDate').value = today;
+
+  // Pre-fill letter from URL data
+  if (clientData.name) document.getElementById('lt-name').textContent = clientData.name;
+  if (clientData.mark) document.getElementById('lt-mark').textContent = clientData.mark;
+  if (clientData.plan) {
+    document.getElementById('lt-plan').textContent = clientData.plan;
+    const planKey = Object.keys(planFees).find(k => clientData.plan.includes(k));
+    if (planKey) {
+      const info = planFees[planKey];
+      document.getElementById('lt-fee').textContent = info.fee;
+      document.getElementById('lt-refund').innerHTML = `<strong>If denied after filing:</strong> ${info.refund}<br><br><strong>If cancelled before filing:</strong> Full refund minus $100 non-refundable review fee.`;
+    }
+  }
+};
+
+function updatePreview(val) {
+  const preview = document.getElementById('signaturePreview');
+  preview.textContent = val || 'Your signature will appear here...';
+  preview.style.opacity = val ? '1' : '0.6';
+}
+
+async function handleSign() {
+  const sigName = document.getElementById('sigName').value.trim();
+  if (!sigName) { alert('Please type your full legal name to sign.'); return; }
+
+  const checks = ['check1','check2','check3','check4'];
+  for (let id of checks) {
+    if (!document.getElementById(id).checked) {
+      alert('Please check all boxes to confirm your agreement before signing.');
+      return;
+    }
+  }
+
+  const btn = document.getElementById('signBtn');
+  btn.disabled = true;
+  btn.textContent = 'Processing...';
+
+  const payload = {
+    stage: 'engagement',
+    timestamp: new Date().toISOString(),
+    clientEmail: clientData.email || '',
+    clientName: clientData.name || '',
+    plan: clientData.plan || '',
+    markName: clientData.mark || '',
+    signatureName: sigName,
+    signatureDate: document.getElementById('sigDate').value,
+    signerTitle: document.getElementById('sigTitle').value.trim(),
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) { console.log('Submitted'); }
+
+  document.getElementById('main-area').style.display = 'none';
+  document.getElementById('successBox').style.display = 'block';
+}
+</script>
+</body>
+</html>
