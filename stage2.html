@@ -145,16 +145,15 @@ header {
         </div>
 
         <div class="fg full conditional" id="logoUploadSection">
-          <label>Upload your logo or design mark *</label>
-          <div class="file-upload" onclick="document.getElementById('logoFile').click()">
-            <input type="file" id="logoFile" accept=".jpg,.jpeg,.png,.pdf,.svg" onchange="showFileName(this)">
-            <div class="file-upload-label">
-              <strong>Click to upload</strong> or drag and drop<br>
-              JPG, PNG, PDF, or SVG · Max 5MB
-            </div>
-            <div class="file-name" id="fileName"></div>
+          <label>Logo / Design Mark File *</label>
+          <div style="background:var(--blue-pale);border:1.5px solid rgba(29,78,216,0.2);border-radius:8px;padding:16px 18px;margin-bottom:8px;">
+            <p style="font-size:0.875rem;color:var(--navy);font-weight:500;margin-bottom:8px;">📁 Upload your logo to your secure client folder</p>
+            <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;margin-bottom:10px;">Your client folder link was included in the email you received after Step 1. Please upload your logo file there, named: <strong>"LOGO — [Your Mark Name]"</strong><br>Accepted formats: JPG, PNG, SVG (high resolution preferred)</p>
+            <a id="driveFolderLink" href="#" target="_blank" style="display:inline-block;background:var(--blue);color:#fff;padding:8px 18px;border-radius:100px;font-size:0.8rem;font-weight:600;text-decoration:none;">Open My Client Folder →</a>
           </div>
-          <span class="hint">If your mark includes color, upload a color version. The USPTO requires a clear image of the mark as it will appear in use.</span>
+          <label style="font-size:0.73rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:8px;">Confirm logo filename</label>
+          <input type="text" id="logoFileName" placeholder='e.g. "LOGO — Make My Mark.png"'>
+          <span class="hint">After uploading to your folder, enter the exact filename here so we can locate it.</span>
         </div>
 
         <div class="fg full conditional" id="colorSection">
@@ -238,16 +237,22 @@ header {
         </div>
 
         <div class="fg full conditional" id="specimenSection">
-          <label>Upload a specimen showing your mark in use *</label>
-          <div class="file-upload" onclick="document.getElementById('specimenFile').click()">
-            <input type="file" id="specimenFile" accept=".jpg,.jpeg,.png,.pdf" onchange="showSpecimenName(this)">
-            <div class="file-upload-label">
-              <strong>Click to upload</strong> your specimen<br>
-              JPG, PNG, or PDF · Max 5MB
-            </div>
-            <div class="file-name" id="specimenName"></div>
+          <label>Specimen of Use *</label>
+          <div style="background:var(--blue-pale);border:1.5px solid rgba(29,78,216,0.2);border-radius:8px;padding:16px 18px;margin-bottom:8px;">
+            <p style="font-size:0.875rem;color:var(--navy);font-weight:500;margin-bottom:8px;">📁 Upload your specimen to your secure client folder</p>
+            <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;margin-bottom:6px;">A specimen shows your mark being used in real commerce. Accepted specimens include:</p>
+            <ul style="font-size:0.82rem;color:var(--muted);line-height:1.8;padding-left:18px;margin-bottom:10px;">
+              <li>Photo of product packaging or label showing the mark</li>
+              <li>Screenshot of your website showing the mark with a buy/order button</li>
+              <li>Photo of a physical sign, storefront, or menu showing the mark</li>
+              <li>Screenshot of an app store listing showing the mark</li>
+            </ul>
+            <p style="font-size:0.82rem;color:var(--muted);margin-bottom:10px;">Name your file: <strong>"SPECIMEN — [Your Mark Name]"</strong> and upload to your client folder.</p>
+            <a id="driveFolderLinkSpecimen" href="#" target="_blank" style="display:inline-block;background:var(--blue);color:#fff;padding:8px 18px;border-radius:100px;font-size:0.8rem;font-weight:600;text-decoration:none;">Open My Client Folder →</a>
           </div>
-          <span class="hint">A specimen shows the mark being used in commerce — e.g. a photo of the mark on your product packaging, a screenshot of your website showing the mark with a buy button, or a menu showing the mark for a restaurant. Labels, tags, and website screenshots are commonly accepted.</span>
+          <label style="font-size:0.73rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:8px;">Confirm specimen filename</label>
+          <input type="text" id="specimenFileName" placeholder='e.g. "SPECIMEN — Make My Mark.jpg"'>
+          <span class="hint">After uploading, enter the exact filename here so we can locate it in your folder.</span>
         </div>
 
         <div class="fg full conditional" id="specimenUrlSection">
@@ -319,7 +324,7 @@ header {
 </div>
 
 <script>
-const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwH0ArUUXpG6bKOyNjVhrEnCsNnfG6I9x4GyXvBQy9iACC98rYo-pZcQtRpvnY83aBmzg/exec';
 
 function toggleConditional() {
   const val = document.querySelector('input[name="stdChars"]:checked')?.value;
@@ -397,7 +402,8 @@ async function handleSubmit2() {
     detailedGoods: document.getElementById('detailedGoods').value.trim(),
     intlClass: document.getElementById('intlClass').value.trim(),
     inUse: document.querySelector('input[name="inUse"]:checked')?.value || '',
-    firstUseDate: document.getElementById('firstUseDate').value,
+    logoFileName: document.getElementById('logoFileName')?.value.trim() || '',
+    specimenFileName: document.getElementById('specimenFileName')?.value.trim() || '',
     firstUseCommerce: document.getElementById('firstUseCommerce').value,
     specimenUrl: document.getElementById('specimenUrl').value.trim(),
     existingReg: document.querySelector('input[name="existingReg"]:checked')?.value || '',
