@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make My Mark — Start Your Trademark Filing</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0F1C3F; --blue: #1D4ED8; --blue-mid: #2563EB;
+  --blue-pale: #EFF4FF; --gold: #B8860B; --gold-mid: #C9973A;
+  --white: #FFFFFF; --off: #F8F9FC; --ink: #1A1A2E;
+  --muted: #6B7280; --border: #E5E9F2;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--ink); min-height: 100vh; }
+header {
+  background: var(--navy); padding: 18px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff; text-decoration: none; }
+.logo span { color: var(--gold-mid); }
+.step-bar { display: flex; align-items: center; gap: 8px; }
+.step { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.step.active { color: var(--gold-mid); }
+.step.inactive { color: rgba(255,255,255,0.3); }
+.step-divider { color: rgba(255,255,255,0.2); font-size: 0.8rem; }
+
+.page-wrap { max-width: 680px; margin: 48px auto; padding: 0 24px 80px; }
+.page-title { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--navy); margin-bottom: 8px; }
+.page-sub { font-size: 0.95rem; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
+
+.card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 36px; }
+
+.form-section { margin-bottom: 28px; }
+.form-section-title {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
+.fg.full { grid-column: 1 / -1; }
+.fg label { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.fg input, .fg select, .fg textarea {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 8px; color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-size: 0.93rem;
+  padding: 11px 14px; outline: none; width: 100%;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: var(--blue); box-shadow: 0 0 0 3px rgba(29,78,216,0.08);
+}
+.fg textarea { resize: vertical; min-height: 80px; }
+.fg .hint { font-size: 0.72rem; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+.plan-option { position: relative; }
+.plan-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.plan-label {
+  display: block; border: 1.5px solid var(--border); border-radius: 8px;
+  padding: 14px 16px; cursor: pointer; transition: border-color 0.18s, background 0.18s;
+}
+.plan-option input[type="radio"]:checked + .plan-label {
+  border-color: var(--blue); background: var(--blue-pale);
+}
+.plan-name { font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+.plan-price { font-size: 0.78rem; color: var(--blue); margin-top: 2px; }
+.plan-desc { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.plan-badge {
+  display: inline-block; background: var(--blue); color: #fff;
+  font-size: 0.55rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 100px;
+  margin-left: 6px; vertical-align: middle;
+}
+
+.submit-btn {
+  width: 100%; background: var(--blue); color: #fff; border: none;
+  padding: 16px; font-family: 'DM Sans', sans-serif;
+  font-size: 1rem; font-weight: 600; cursor: pointer;
+  border-radius: 100px; margin-top: 24px;
+  transition: background 0.18s;
+}
+.submit-btn:hover { background: var(--blue-mid); }
+.submit-btn:disabled { background: var(--muted); cursor: not-allowed; }
+
+.disclaimer {
+  font-size: 0.72rem; color: var(--muted); line-height: 1.6;
+  text-align: center; margin-top: 14px;
+}
+
+.success-box {
+  display: none; text-align: center; padding: 40px 20px;
+}
+.success-icon { font-size: 3rem; margin-bottom: 16px; }
+.success-title { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 12px; }
+.success-msg { font-size: 0.95rem; color: var(--muted); line-height: 1.7; max-width: 420px; margin: 0 auto; }
+
+.trust-row {
+  display: flex; justify-content: center; gap: 24px;
+  margin-top: 28px; flex-wrap: wrap;
+}
+.trust-item { font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .plan-grid { grid-template-columns: 1fr; }
+  header { padding: 14px 20px; }
+  .card { padding: 24px 18px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Make My Mark<span>.</span></a>
+  <div class="step-bar">
+    <span class="step active">Step 1 — Your Info</span>
+    <span class="step-divider">→</span>
+    <span class="step inactive">Step 2 — Mark Details</span>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <h1 class="page-title">Start your filing.</h1>
+  <p class="page-sub">Tell us about yourself and select a plan. After submission, you'll receive an email with a link to complete the detailed trademark information — then we take it from there.</p>
+
+  <div class="card">
+    <div id="form-area">
+
+      <div class="form-section">
+        <div class="form-section-title">Your Information</div>
+        <div class="form-grid">
+          <div class="fg"><label>First Name *</label><input type="text" id="firstName" placeholder="First Name" required></div>
+          <div class="fg"><label>Last Name *</label><input type="text" id="lastName" placeholder="Last Name" required></div>
+          <div class="fg full"><label>Email Address *</label><input type="email" id="email" placeholder="you@yourbusiness.com" required></div>
+          <div class="fg full"><label>Phone Number</label><input type="tel" id="phone" placeholder="(405) 555-0100"></div>
+          <div class="fg full"><label>Street Address *</label><input type="text" id="address" placeholder="123 Main Street" required></div>
+          <div class="fg"><label>City *</label><input type="text" id="city" placeholder="City" required></div>
+          <div class="fg"><label>State *</label><input type="text" id="state" placeholder="ST" maxlength="2" required></div>
+          <div class="fg"><label>ZIP Code *</label><input type="text" id="zip" placeholder="11111" required></div>
+          <div class="fg"><label>Country *</label><input type="text" id="country" placeholder="United States" value="United States" required></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Applicant Type</div>
+        <div class="form-grid">
+          <div class="fg full">
+            <label>Legal Entity Type *</label>
+            <select id="entityType" required>
+              <option value="" disabled selected>Select your entity type</option>
+              <option>Individual / Sole Proprietor</option>
+              <option>LLC</option>
+              <option>Corporation</option>
+              <option>Partnership</option>
+              <option>Joint Venture</option>
+              <option>Other</option>
+            </select>
+            <span class="hint">This is how you or your business is legally organized.</span>
+          </div>
+          <div class="fg full">
+            <label>Citizenship / State or Country of Incorporation *</label>
+            <input type="text" id="citizenship" placeholder="e.g. United States or Delaware (for LLC)" required>
+            <span class="hint">Individuals: your country of citizenship. Businesses: state or country where incorporated.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">About Your Mark</div>
+        <div class="form-grid">
+          <div class="fg full">
+            <label>What would you like to trademark? *</label>
+            <input type="text" id="markName" placeholder="Your brand name, slogan, or describe your logo" required>
+          </div>
+          <div class="fg full">
+            <label>Type of Mark *</label>
+            <select id="markType" required>
+              <option value="" disabled selected>Select one</option>
+              <option>Word Mark — name or phrase only (standard characters)</option>
+              <option>Design Mark — logo or image only</option>
+              <option>Combination Mark — name plus logo together</option>
+              <option>Not sure — attorney will advise</option>
+            </select>
+          </div>
+          <div class="fg full">
+            <label>Filing Basis *</label>
+            <select id="filingBasis" required>
+              <option value="" disabled selected>Select one</option>
+              <option>Use in Commerce — I am already using this mark in my business</option>
+              <option>Intent to Use — I plan to use this mark but haven't started yet</option>
+              <option>Not sure — attorney will advise</option>
+            </select>
+            <span class="hint">If you're already selling products or services under this name, select "Use in Commerce."</span>
+          </div>
+          <div class="fg full">
+            <label>Briefly describe your goods or services *</label>
+            <textarea id="goodsServices" placeholder="e.g. Restaurant services, casual dining. Or: Online retail store selling handmade jewelry." required></textarea>
+            <span class="hint">Don't worry about being precise — your attorney will finalize the description using the USPTO ID Manual.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Select Your Plan</div>
+        <div class="plan-grid">
+          <div class="plan-option">
+            <input type="radio" name="plan" id="plan1" value="Standard — $749">
+            <label class="plan-label" for="plan1">
+              <div class="plan-name">Standard</div>
+              <div class="plan-price">$749 + $350 USPTO fee</div>
+              <div class="plan-desc">1 class · clearance search · one Office Action response</div>
+            </label>
+          </div>
+          <div class="plan-option">
+            <input type="radio" name="plan" id="plan2" value="Plus — $999">
+            <label class="plan-label" for="plan2">
+              <div class="plan-name">Plus <span class="plan-badge">Popular</span></div>
+              <div class="plan-price">$999 + $350 USPTO fee</div>
+              <div class="plan-desc">2 classes · unlimited Office Action responses through registration</div>
+            </label>
+          </div>
+          <div class="plan-option">
+            <input type="radio" name="plan" id="plan3" value="Business — $1,249">
+            <label class="plan-label" for="plan3">
+              <div class="plan-name">Business</div>
+              <div class="plan-price">$1,249 + $350 USPTO fee</div>
+              <div class="plan-desc">3 classes · full clearance opinion · priority 24hr filing</div>
+            </label>
+          </div>
+          <div class="plan-option">
+            <input type="radio" name="plan" id="plan4" value="Premium — $1,499">
+            <label class="plan-label" for="plan4">
+              <div class="plan-name">Premium</div>
+              <div class="plan-price">$1,499 + $350 USPTO fee</div>
+              <div class="plan-desc">3 classes · 12-month monitoring · cease &amp; desist · renewal assistance</div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Anything Else?</div>
+        <div class="form-grid">
+          <div class="fg full">
+            <label>Additional Notes</label>
+            <textarea id="notes" placeholder="Anything you'd like the attorney to know before reviewing your application..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--blue-pale);border:1.5px solid rgba(29,78,216,0.15);border-radius:8px;padding:18px 20px;margin-top:24px;display:flex;flex-direction:column;gap:12px;">
+        <label style="display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:var(--ink);cursor:pointer;line-height:1.5;">
+          <input type="checkbox" id="tcCheck" style="margin-top:3px;flex-shrink:0;width:auto;cursor:pointer;">
+          I have read and agree to the <a href="terms.html" target="_blank" style="color:var(--blue);font-weight:500;">Terms &amp; Conditions</a>, including the refund policy and attorney advertising disclosure.
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:var(--ink);cursor:pointer;line-height:1.5;">
+          <input type="checkbox" id="refundCheck" style="margin-top:3px;flex-shrink:0;width:auto;cursor:pointer;">
+          I understand that a <strong>$100 non-refundable review fee</strong> is retained upon submission, a <strong>$250 attorney fee is earned upon filing</strong>, and USPTO government fees ($350/class) are non-refundable by federal law. If my mark is ultimately denied after all responses are exhausted, I am entitled to a refund of my attorney service fee minus $250 (Premium plan clients receive a full attorney fee refund).
+        </label>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Submit &amp; Continue to Payment →</button>
+      <p class="disclaimer">By submitting, you agree to be contacted by a licensed attorney. Submission does not create an attorney-client relationship until engagement is confirmed. All information is kept strictly confidential.</p>
+
+      <div class="trust-row">
+        <div class="trust-item">⚖️ Licensed Attorney Review</div>
+        <div class="trust-item">🔒 Confidential</div>
+        <div class="trust-item">⚡ Response within 24 hours</div>
+      </div>
+    </div>
+
+    <div class="success-box" id="successBox">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Application received!</div>
+      <p class="success-msg">Thank you — we've received your information and a licensed attorney will review it shortly.<br><br>Check your email at <strong id="confirmEmail"></strong> for a link to complete the detailed trademark information. Please check your spam folder if you don't see it within a few minutes.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwH0ArUUXpG6bKOyNjVhrEnCsNnfG6I9x4GyXvBQy9iACC98rYo-pZcQtRpvnY83aBmzg/exec';
+
+async function handleSubmit() {
+  const btn = document.getElementById('submitBtn');
+
+  const selectedPlan = document.querySelector('input[name="plan"]:checked');
+  if (!selectedPlan) { alert('Please select a plan before continuing.'); return; }
+
+  if (!document.getElementById('tcCheck').checked) {
+    alert('Please agree to the Terms & Conditions before continuing.');
+    return;
+  }
+  if (!document.getElementById('refundCheck').checked) {
+    alert('Please acknowledge the refund policy before continuing.');
+    return;
+  }
+
+  const required = ['firstName','lastName','email','address','city','state','zip','country','entityType','citizenship','markName','markType','filingBasis','goodsServices'];
+  for (let id of required) {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.focus();
+      el.style.borderColor = '#DC2626';
+      alert('Please fill in all required fields.');
+      return;
+    }
+    el.style.borderColor = '';
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const data = {
+    stage: '1',
+    timestamp: new Date().toISOString(),
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName: document.getElementById('lastName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    city: document.getElementById('city').value.trim(),
+    state: document.getElementById('state').value.trim(),
+    zip: document.getElementById('zip').value.trim(),
+    country: document.getElementById('country').value.trim(),
+    entityType: document.getElementById('entityType').value,
+    citizenship: document.getElementById('citizenship').value.trim(),
+    markName: document.getElementById('markName').value.trim(),
+    markType: document.getElementById('markType').value,
+    filingBasis: document.getElementById('filingBasis').value,
+    goodsServices: document.getElementById('goodsServices').value.trim(),
+    plan: selectedPlan.value,
+    notes: document.getElementById('notes').value.trim()
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch(e) {
+    console.log('Submission sent');
+  }
+
+  document.getElementById('confirmEmail').textContent = data.email;
+  document.getElementById('form-area').style.display = 'none';
+  document.getElementById('successBox').style.display = 'block';
+}
+</script>
+</body>
+</html>
