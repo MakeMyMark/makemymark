@@ -367,6 +367,28 @@ function showSpecimenName(input) {
 // Set today's date as default for signature date
 document.getElementById('signatureDate').valueAsDate = new Date();
 
+// Parse URL parameters to pre-fill client email and Drive folder links
+(function() {
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var email = params.get('email');
+    var folder = params.get('folder');
+
+    if (email) {
+      document.getElementById('clientEmail').value = email;
+    }
+    if (folder) {
+      var decodedFolder = decodeURIComponent(folder);
+      var logoLink = document.getElementById('driveFolderLink');
+      var specimenLink = document.getElementById('driveFolderLinkSpecimen');
+      if (logoLink) logoLink.href = decodedFolder;
+      if (specimenLink) specimenLink.href = decodedFolder;
+    }
+  } catch(e) {
+    console.log('No URL params found');
+  }
+})();
+
 async function handleSubmit2() {
   const btn = document.getElementById('submitBtn2');
 
